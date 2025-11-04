@@ -1,12 +1,25 @@
 import React, { useState } from 'react';
 import proto from './proto/gen/main_pb.js';
 import grpc from './proto/gen/main_grpc_web_pb.js';
+import HealthCheck from './rpcs/HealthCheck.jsx';
+import GetOriginalURL from './rpcs/GetOriginalURL.jsx';
+import IncrementClick from './rpcs/IncrementClick.jsx';
+import GetURLStats from './rpcs/GetURLStats.jsx';
+import UpdateURL from './rpcs/UpdateURL.jsx';
+import DeleteURL from './rpcs/DeleteURL.jsx';
+import ListAllURLs from './rpcs/ListAllURLs.jsx';
 
 // Create a promise-based client. Set VITE_API_HOST in .env or default to localhost
 const GRPC_HOST = import.meta.env.VITE_API_HOST || 'http://localhost:8081';
 const client = new grpc.UrlShortenerPromiseClient(GRPC_HOST);
 
 export default function App() {
+	const [selectedRpc, setSelectedRpc] = useState(null);
+
+	function goBack() {
+		setSelectedRpc(null);
+	}
+
 	const [originalUrl, setOriginalUrl] = useState('');
 	const [expireSeconds, setExpireSeconds] = useState('0');
 	const [shortUrl, setShortUrl] = useState(null);
@@ -52,9 +65,46 @@ export default function App() {
 
 	return (
 		<div style={{maxWidth: 720, margin: '40px auto', fontFamily: 'system-ui, sans-serif'}}>
-			<h1>URL Shortener — gRPC-web demo</h1>
+			{/* RPC navigation buttons */}
+			<div style={{display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 18}}>
+				<button type="button" onClick={() => setSelectedRpc('health')} style={{padding: '6px 10px'}}>
+					HealthCheck
+				</button>
+				<button type="button" onClick={() => setSelectedRpc('get')} style={{padding: '6px 10px'}}>
+					GetOriginalURL
+				</button>
+				<button type="button" onClick={() => setSelectedRpc('inc')} style={{padding: '6px 10px'}}>
+					IncrementClick
+				</button>
+				<button type="button" onClick={() => setSelectedRpc('stats')} style={{padding: '6px 10px'}}>
+					GetURLStats
+				</button>
+				<button type="button" onClick={() => setSelectedRpc('update')} style={{padding: '6px 10px'}}>
+					UpdateURL
+				</button>
+				<button type="button" onClick={() => setSelectedRpc('delete')} style={{padding: '6px 10px'}}>
+					DeleteURL
+				</button>
+				<button type="button" onClick={() => setSelectedRpc('list')} style={{padding: '6px 10px'}}>
+					ListAllURLs
+				</button>
+			</div>
 
-			<form onSubmit={handleSubmit} style={{display: 'grid', gap: 12}}>
+			{/* Render chosen RPC component (pass client, proto, goBack) */}
+			{selectedRpc === 'health' && <HealthCheck client={client} proto={proto} goBack={goBack} />}
+			{selectedRpc === 'get' && <GetOriginalURL client={client} proto={proto} goBack={goBack} />}
+			{selectedRpc === 'inc' && <IncrementClick client={client} proto={proto} goBack={goBack} />}
+			{selectedRpc === 'stats' && <GetURLStats client={client} proto={proto} goBack={goBack} />}
+			{selectedRpc === 'update' && <UpdateURL client={client} proto={proto} goBack={goBack} />}
+			{selectedRpc === 'delete' && <DeleteURL client={client} proto={proto} goBack={goBack} />}
+			{selectedRpc === 'list' && <ListAllURLs client={client} proto={proto} goBack={goBack} />}
+
+			{/* If no rpc selected, show the existing shorten form */}
+			{selectedRpc === null && (
+			<>
+				<h1>URL Shortener — gRPC-web demo</h1>
+
+				<form onSubmit={handleSubmit} style={{display: 'grid', gap: 12}}>
 				<label>
 					Long URL
 					<input
@@ -83,6 +133,8 @@ export default function App() {
 					</button>
 				</div>
 			</form>
+			</>
+			)}
 
 			<div style={{marginTop: 20}}>
 				{error && (
