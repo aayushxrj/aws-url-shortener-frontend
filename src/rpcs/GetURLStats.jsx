@@ -37,30 +37,32 @@ export default function GetURLStats({ client, proto, goBack }) {
   }
 
   return (
-    <div>
-      <div style={{display: 'flex', gap: 8, marginBottom: 12}}>
-        <button type="button" onClick={goBack} style={{padding: '6px 10px'}}>Back</button>
+    <div className="section">
+      <div className="toolbar">
+        <button type="button" className="btn btn-outline" onClick={goBack}>Back</button>
       </div>
 
-      <form onSubmit={run} style={{display: 'grid', gap: 8, maxWidth: 600}}>
-        <label>
-          Short ID
-          <input value={shortId} onChange={(e) => setShortId(e.target.value)} style={{width: '100%', padding: 8, marginTop: 6}} />
+      <form onSubmit={run} className="form-grid card" style={{maxWidth: 600}}>
+        <label className="label">
+          <span>Short ID</span>
+          <input className="input" value={shortId} onChange={(e) => setShortId(e.target.value)} />
         </label>
         <div>
-          <button type="submit" disabled={loading} style={{padding: '8px 14px'}}>{loading ? 'Loading…' : 'Get URL Stats'}</button>
+          <button type="submit" className="btn btn-primary" disabled={loading}>{loading ? 'Loading…' : 'Get URL Stats'}</button>
         </div>
       </form>
 
-      <div style={{marginTop: 12}}>
-        {error && <div style={{color: 'crimson'}}><strong>Error:</strong> {error}</div>}
+      <div className="messages">
+        {error && <div className="error"><strong>Error:</strong> {error}</div>}
         {stats && (
-          <div>
-            <p><strong>Short ID:</strong> {stats.shortId}</p>
-            <p><strong>Original URL:</strong> <a href={stats.originalUrl} target="_blank" rel="noreferrer">{stats.originalUrl}</a></p>
-            <p><strong>Clicks:</strong> {stats.clicks}</p>
-            <p><strong>Created At:</strong> {stats.createdAt}</p>
-            <p><strong>Expire At (unix):</strong> {stats.expireAt}</p>
+          <div className="card" style={{marginTop: 12}}>
+            <div className="card-body">
+              <p><strong>Short ID:</strong> {stats.shortId}</p>
+              <p><strong>Original URL:</strong> <a href={stats.originalUrl} target="_blank" rel="noreferrer">{stats.originalUrl}</a></p>
+              <p><strong>Clicks:</strong> {stats.clicks}</p>
+              <p><strong>Created At:</strong> {stats.createdAt}</p>
+              <p><strong>Expire At (unix):</strong> {stats.expireAt}</p>
+            </div>
           </div>
         )}
       </div>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './App.css';
 import proto from './proto/gen/main_pb.js';
 import grpc from './proto/gen/main_grpc_web_pb.js';
 import HealthCheck from './rpcs/HealthCheck.jsx';
@@ -79,30 +80,25 @@ export default function App() {
 	}
 
 	return (
-		<div style={{maxWidth: 720, margin: '40px auto', fontFamily: 'system-ui, sans-serif'}}>
+		<div className="app-container">
+			<header className="navbar">
+				<div className="brand">URL Shortener</div>
+				<nav className="nav-actions">
+					<button type="button" className="btn btn-outline" onClick={() => setSelectedRpc(null)}>Home</button>
+					<button type="button" className="btn btn-outline" onClick={() => setSelectedRpc('health')}>Health</button>
+					<button type="button" className="btn btn-outline" onClick={() => setSelectedRpc('list')}>List</button>
+				</nav>
+			</header>
+
 			{/* RPC navigation buttons */}
-			<div style={{display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 18}}>
-				<button type="button" onClick={() => setSelectedRpc('health')} style={{padding: '6px 10px'}}>
-					HealthCheck
-				</button>
-				<button type="button" onClick={() => setSelectedRpc('get')} style={{padding: '6px 10px'}}>
-					GetOriginalURL
-				</button>
-				<button type="button" onClick={() => setSelectedRpc('inc')} style={{padding: '6px 10px'}}>
-					IncrementClick
-				</button>
-				<button type="button" onClick={() => setSelectedRpc('stats')} style={{padding: '6px 10px'}}>
-					GetURLStats
-				</button>
-				<button type="button" onClick={() => setSelectedRpc('update')} style={{padding: '6px 10px'}}>
-					UpdateURL
-				</button>
-				<button type="button" onClick={() => setSelectedRpc('delete')} style={{padding: '6px 10px'}}>
-					DeleteURL
-				</button>
-				<button type="button" onClick={() => setSelectedRpc('list')} style={{padding: '6px 10px'}}>
-					ListAllURLs
-				</button>
+			<div className="toolbar">
+				<button type="button" className="btn" onClick={() => setSelectedRpc('health')}>HealthCheck</button>
+				<button type="button" className="btn" onClick={() => setSelectedRpc('get')}>GetOriginalURL</button>
+				<button type="button" className="btn" onClick={() => setSelectedRpc('inc')}>IncrementClick</button>
+				<button type="button" className="btn" onClick={() => setSelectedRpc('stats')}>GetURLStats</button>
+				<button type="button" className="btn" onClick={() => setSelectedRpc('update')}>UpdateURL</button>
+				<button type="button" className="btn" onClick={() => setSelectedRpc('delete')}>DeleteURL</button>
+				<button type="button" className="btn" onClick={() => setSelectedRpc('list')}>ListAllURLs</button>
 			</div>
 
 			{/* Render chosen RPC component (pass client, proto, goBack) */}
@@ -117,49 +113,57 @@ export default function App() {
 			{/* If no rpc selected, show the existing shorten form */}
 			{selectedRpc === null && (
 			<>
-				<h1>URL Shortener — gRPC-web demo</h1>
+				<section className="hero">
+					<h1>Shorten links. Share faster.</h1>
+					<p className="muted">Create clean short links with analytics and management via gRPC‑Web.</p>
+				</section>
 
-				<form onSubmit={handleSubmit} style={{display: 'grid', gap: 12}}>
-				<label>
-					Long URL
-					<input
-						type="text"
-						value={originalUrl}
-						onChange={(e) => setOriginalUrl(e.target.value)}
-						placeholder="https://example.com/very/long/path"
-						style={{width: '100%', padding: 8, marginTop: 6}}
-					/>
-				</label>
+				<div className="card">
+					<div className="card-header">Create a short link</div>
+					<div className="card-body">
+						<form onSubmit={handleSubmit} className="form-grid">
+							<label className="label">
+								<span>Long URL</span>
+								<input
+									className="input"
+									type="text"
+									value={originalUrl}
+									onChange={(e) => setOriginalUrl(e.target.value)}
+									placeholder="https://example.com/very/long/path"
+								/>
+							</label>
 
-				<label>
-					Expire in seconds (optional)
-					<input
-						type="number"
-						min="0"
-						value={expireSeconds}
-						onChange={(e) => setExpireSeconds(e.target.value)}
-						style={{width: 200, padding: 8, marginTop: 6}}
-					/>
-				</label>
+							<label className="label inline">
+								<span>Expire in seconds (optional)</span>
+								<input
+									className="input input-number"
+									type="number"
+									min="0"
+									value={expireSeconds}
+									onChange={(e) => setExpireSeconds(e.target.value)}
+								/>
+							</label>
 
-				<div>
-					<button type="submit" disabled={loading} style={{padding: '8px 14px'}}>
-						{loading ? 'Shortening…' : 'Shorten URL'}
-					</button>
+							<div>
+								<button type="submit" className="btn btn-primary" disabled={loading}>
+									{loading ? 'Shortening…' : 'Shorten URL'}
+								</button>
+							</div>
+						</form>
+					</div>
 				</div>
-			</form>
 			</>
 			)}
 
-			<div style={{marginTop: 20}}>
+			<div className="messages">
 				{error && (
-					<div style={{color: 'crimson'}}>
+					<div className="error">
 						<strong>Error:</strong> {error}
 					</div>
 				)}
 
 				{shortUrl && (
-					<div>
+					<div className="result">
 						<h3>Shortened URL</h3>
 						<p>
 							<a href={shortUrl} target="_blank" rel="noreferrer">{shortUrl}</a>
@@ -169,13 +173,9 @@ export default function App() {
 				)}
 			</div>
 
-			<hr style={{marginTop: 32}} />
-			<p style={{color: '#666'}}>
+			<hr className="divider" />
+			<p className="muted">
 				Using gRPC host: <code>{GRPC_HOST}</code>
-			</p>
-
-			<p style={{color: '#666'}}>
-				Tip: if your backend is gRPC+grpc-web behind a proxy (envoy or grpc-gateway), make sure CORS and grpc-web proxying are configured.
 			</p>
 		</div>
 	);

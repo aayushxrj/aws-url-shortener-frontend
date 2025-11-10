@@ -41,55 +41,55 @@ export default function ListAllURLs({ client, proto, goBack }) {
   }
 
   return (
-    <div>
-      <div style={{display: 'flex', gap: 8, marginBottom: 12}}>
-        <button type="button" onClick={goBack} style={{padding: '6px 10px'}}>Back</button>
+    <div className="section">
+      <div className="toolbar">
+        <button type="button" className="btn btn-outline" onClick={goBack}>Back</button>
       </div>
 
-      <form onSubmit={run} style={{display: 'grid', gap: 8, maxWidth: 800}}>
-        <label>
-          Limit
-          <input type="number" min="1" value={limit} onChange={(e) => setLimit(e.target.value)} style={{width: 120, padding: 8, marginTop: 6}} />
+      <form onSubmit={run} className="form-grid card" style={{maxWidth: 800}}>
+        <label className="label inline">
+          <span>Limit</span>
+          <input className="input input-number" type="number" min="1" value={limit} onChange={(e) => setLimit(e.target.value)} />
         </label>
-        <label>
-          Last evaluated key (optional)
-          <input value={lastKey} onChange={(e) => setLastKey(e.target.value)} style={{width: '100%', padding: 8, marginTop: 6}} />
+        <label className="label">
+          <span>Last evaluated key (optional)</span>
+          <input className="input" value={lastKey} onChange={(e) => setLastKey(e.target.value)} />
         </label>
         <div>
-          <button type="submit" disabled={loading} style={{padding: '8px 14px'}}>{loading ? 'Loading…' : 'List URLs'}</button>
+          <button type="submit" className="btn btn-primary" disabled={loading}>{loading ? 'Loading…' : 'List URLs'}</button>
         </div>
       </form>
 
-      <div style={{marginTop: 12}}>
-        {error && <div style={{color: 'crimson'}}><strong>Error:</strong> {error}</div>}
+      <div className="messages">
+        {error && <div className="error"><strong>Error:</strong> {error}</div>}
         {urls && (
           <div>
             <p><strong>Returned:</strong> {urls.length}</p>
-            <table style={{width: '100%', borderCollapse: 'collapse'}}>
+            <table className="table">
               <thead>
                 <tr>
-                  <th style={{textAlign: 'left', borderBottom: '1px solid #ddd'}}>Short ID</th>
-                  <th style={{textAlign: 'left', borderBottom: '1px solid #ddd'}}>Original URL</th>
-                  <th style={{textAlign: 'left', borderBottom: '1px solid #ddd'}}>Clicks</th>
-                  <th style={{textAlign: 'left', borderBottom: '1px solid #ddd'}}>Created</th>
-                  <th style={{textAlign: 'left', borderBottom: '1px solid #ddd'}}>ExpireAt</th>
+                  <th>Short ID</th>
+                  <th>Original URL</th>
+                  <th>Clicks</th>
+                  <th>Created</th>
+                  <th>ExpireAt</th>
                 </tr>
               </thead>
               <tbody>
                 {urls.map((u) => (
                   <tr key={u.shortId}>
-                    <td style={{padding: '6px 8px', borderBottom: '1px solid #f1f1f1'}}>{u.shortId}</td>
-                    <td style={{padding: '6px 8px', borderBottom: '1px solid #f1f1f1'}}><a href={u.originalUrl} target="_blank" rel="noreferrer">{u.originalUrl}</a></td>
-                    <td style={{padding: '6px 8px', borderBottom: '1px solid #f1f1f1'}}>{u.clicks}</td>
-                    <td style={{padding: '6px 8px', borderBottom: '1px solid #f1f1f1'}}>{u.createdAt}</td>
-                    <td style={{padding: '6px 8px', borderBottom: '1px solid #f1f1f1'}}>{u.expireAt}</td>
+                    <td>{u.shortId}</td>
+                    <td><a href={u.originalUrl} target="_blank" rel="noreferrer">{u.originalUrl}</a></td>
+                    <td>{u.clicks}</td>
+                    <td>{u.createdAt}</td>
+                    <td>{u.expireAt}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
 
             {lastEvaluatedKey && (
-              <p style={{marginTop: 8}}><strong>LastEvaluatedKey:</strong> {lastEvaluatedKey}</p>
+              <p className="muted" style={{marginTop: 8}}><strong>LastEvaluatedKey:</strong> {lastEvaluatedKey}</p>
             )}
           </div>
         )}

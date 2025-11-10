@@ -37,33 +37,33 @@ export default function UpdateURL({ client, proto, goBack }) {
   }
 
   return (
-    <div>
-      <div style={{display: 'flex', gap: 8, marginBottom: 12}}>
-        <button type="button" onClick={goBack} style={{padding: '6px 10px'}}>Back</button>
+    <div className="section">
+      <div className="toolbar">
+        <button type="button" className="btn btn-outline" onClick={goBack}>Back</button>
       </div>
 
-      <form onSubmit={run} style={{display: 'grid', gap: 8, maxWidth: 600}}>
-        <label>
-          Short ID
-          <input value={shortId} onChange={(e) => setShortId(e.target.value)} style={{width: '100%', padding: 8, marginTop: 6}} />
+      <form onSubmit={run} className="form-grid card" style={{maxWidth: 700}}>
+        <label className="label">
+          <span>Short ID</span>
+          <input className="input" value={shortId} onChange={(e) => setShortId(e.target.value)} />
         </label>
-        <label>
-          New Original URL (optional)
-          <input value={newOriginal} onChange={(e) => setNewOriginal(e.target.value)} style={{width: '100%', padding: 8, marginTop: 6}} />
+        <label className="label">
+          <span>New Original URL (optional)</span>
+          <input className="input" value={newOriginal} onChange={(e) => setNewOriginal(e.target.value)} />
         </label>
-        <label>
-          New expire in seconds (optional)
-          <input type="number" min="0" value={newExpire} onChange={(e) => setNewExpire(e.target.value)} style={{width: 200, padding: 8, marginTop: 6}} />
+        <label className="label inline">
+          <span>New expire in seconds (optional)</span>
+          <input className="input input-number" type="number" min="0" value={newExpire} onChange={(e) => setNewExpire(e.target.value)} />
         </label>
         <div>
-          <button type="submit" disabled={loading} style={{padding: '8px 14px'}}>{loading ? 'Updating…' : 'Update URL'}</button>
+          <button type="submit" className="btn btn-primary" disabled={loading}>{loading ? 'Updating…' : 'Update URL'}</button>
         </div>
       </form>
 
-      <div style={{marginTop: 12}}>
-        {error && <div style={{color: 'crimson'}}><strong>Error:</strong> {error}</div>}
+      <div className="messages">
+        {error && <div className="error"><strong>Error:</strong> {error}</div>}
         {result && (
-          <div>
+          <div className="result">
             <p><strong>Success:</strong> {String(result.success)}</p>
             {result.message && <p><strong>Message:</strong> {result.message}</p>}
           </div>

@@ -31,24 +31,24 @@ export default function GetOriginalURL({ client, proto, goBack }) {
   }
 
   return (
-    <div>
-      <div style={{display: 'flex', gap: 8, marginBottom: 12}}>
-        <button type="button" onClick={goBack} style={{padding: '6px 10px'}}>Back</button>
+    <div className="section">
+      <div className="toolbar">
+        <button type="button" className="btn btn-outline" onClick={goBack}>Back</button>
       </div>
 
-      <form onSubmit={run} style={{display: 'grid', gap: 8, maxWidth: 480}}>
-        <label>
-          Short ID
-          <input value={shortId} onChange={(e) => setShortId(e.target.value)} style={{width: '100%', padding: 8, marginTop: 6}} />
+      <form onSubmit={run} className="form-grid card" style={{maxWidth: 600}}>
+        <label className="label">
+          <span>Short ID</span>
+          <input className="input" value={shortId} onChange={(e) => setShortId(e.target.value)} />
         </label>
         <div>
-          <button type="submit" disabled={loading} style={{padding: '8px 14px'}}>{loading ? 'Fetching…' : 'Get Original URL'}</button>
+          <button type="submit" className="btn btn-primary" disabled={loading}>{loading ? 'Fetching…' : 'Get Original URL'}</button>
         </div>
       </form>
 
-      <div style={{marginTop: 12}}>
-        {error && <div style={{color: 'crimson'}}><strong>Error:</strong> {error}</div>}
-        {original && <div><strong>Original URL:</strong> <a href={original} target="_blank" rel="noreferrer">{original}</a></div>}
+      <div className="messages">
+        {error && <div className="error"><strong>Error:</strong> {error}</div>}
+        {original && <div className="result"><strong>Original URL:</strong> <a href={original} target="_blank" rel="noreferrer">{original}</a></div>}
       </div>
     </div>
   );

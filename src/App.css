@@ -1,0 +1,116 @@
+/* Modern UI styles for the URL Shortener */
+
+:root {
+	--bg: #0b0f14;
+	--panel: #111826;
+	--panel-2: #0f1723;
+	--text: #e5e7eb;
+	--muted: #9ca3af;
+	--brand: #7c5cff;
+	--brand-2: #5b7bff;
+	--danger: #ff5c8a;
+	--border: #1f2937;
+}
+
+.app-container {
+	max-width: 980px;
+	margin: 0 auto;
+	padding: 24px 20px 60px;
+	display: grid;
+	gap: 16px;
+	justify-items: center; /* center all direct children */
+}
+
+.navbar {
+	display: flex;
+	justify-content: center; /* center nav content */
+	align-items: center;
+	background: var(--panel);
+	border: 1px solid var(--border);
+	border-radius: 14px;
+	padding: 10px 14px;
+	margin-bottom: 18px;
+	width: 100%;
+	gap: 12px;
+}
+.brand {
+	font-weight: 700;
+	color: var(--text);
+}
+.nav-actions { display: flex; gap: 8px; }
+
+.toolbar {
+	display: flex;
+	gap: 8px;
+	flex-wrap: wrap;
+	margin-bottom: 18px;
+	justify-content: center; /* center buttons */
+}
+
+.hero {
+	padding: 26px 18px;
+	border-radius: 16px;
+	background: linear-gradient(135deg, var(--panel), var(--panel-2));
+	border: 1px solid var(--border);
+	margin-bottom: 16px;
+	text-align: center; /* center hero text */
+}
+.hero h1 { margin: 0 0 6px; font-size: 2.1rem; color: var(--text); }
+.muted { color: var(--muted); }
+
+.card {
+	background: var(--panel);
+	border: 1px solid var(--border);
+	border-radius: 14px;
+	width: 100%;
+	max-width: 720px;
+	margin: 0 auto; /* center the card block */
+}
+.card-header {
+	padding: 12px 14px;
+	font-weight: 600;
+	border-bottom: 1px solid var(--border);
+}
+.card-body { padding: 16px; }
+
+.form-grid { display: grid; gap: 12px; justify-items: center; }
+.label { display: grid; gap: 6px; color: var(--text); width: 100%; max-width: 720px; }
+.label.inline { max-width: 320px; }
+.input {
+	width: 100%;
+	padding: 10px 12px;
+	border-radius: 10px;
+	border: 1px solid var(--border);
+	background: var(--panel-2);
+	color: var(--text);
+}
+.input-number { max-width: 220px; }
+
+.btn {
+	border-radius: 10px;
+	border: 1px solid var(--border);
+	background: var(--panel-2);
+	color: var(--text);
+	padding: 8px 12px;
+}
+.btn:hover { border-color: var(--brand); }
+.btn-primary {
+	background: linear-gradient(135deg, var(--brand), var(--brand-2));
+	border: none;
+}
+.btn-outline {
+	background: transparent;
+	border-color: var(--border);
+}
+
+.messages { margin-top: 20px; text-align: center; }
+.error { color: var(--danger); }
+.divider { margin: 26px 0; border: none; border-top: 1px solid var(--border); }
+
+.result h3 { margin: 0 0 8px; }
+
+.section { padding: 4px 0; }
+
+.table { width: 100%; border-collapse: collapse; margin: 0 auto; }
+.table th, .table td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border); }
+

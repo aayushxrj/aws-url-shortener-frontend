@@ -24,16 +24,16 @@ export default function HealthCheck({ client, proto, goBack }) {
   }
 
   return (
-    <div>
-      <div style={{display: 'flex', gap: 8, marginBottom: 12}}>
-        <button type="button" onClick={goBack} style={{padding: '6px 10px'}}>Back</button>
-        <button type="button" onClick={run} style={{padding: '6px 10px'}} disabled={loading}>
+    <div className="section">
+      <div className="toolbar">
+        <button type="button" className="btn btn-outline" onClick={goBack}>Back</button>
+        <button type="button" className="btn btn-primary" onClick={run} disabled={loading}>
           {loading ? 'Checking…' : 'Run HealthCheck'}
         </button>
       </div>
 
-      {error && <div style={{color: 'crimson'}}><strong>Error:</strong> {error}</div>}
-      {status && <div><strong>Status:</strong> {status}</div>}
+      {error && <div className="error"><strong>Error:</strong> {error}</div>}
+      {status && <div className="result"><strong>Status:</strong> {status}</div>}
     </div>
   );
 }
