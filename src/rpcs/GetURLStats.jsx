@@ -55,14 +55,12 @@ export default function GetURLStats({ client, proto, goBack }) {
       <div className="messages">
         {error && <div className="error"><strong>Error:</strong> {error}</div>}
         {stats && (
-          <div className="card" style={{marginTop: 12}}>
-            <div className="card-body">
-              <p><strong>Short ID:</strong> {stats.shortId}</p>
-              <p><strong>Original URL:</strong> <a href={stats.originalUrl} target="_blank" rel="noreferrer">{stats.originalUrl}</a></p>
-              <p><strong>Clicks:</strong> {stats.clicks}</p>
-              <p><strong>Created At:</strong> {stats.createdAt}</p>
-              <p><strong>Expire At (unix):</strong> {stats.expireAt}</p>
-            </div>
+          <div className="stats-card">
+            <p><strong>Short ID:</strong> {stats.shortId}</p>
+            <p><strong>Original URL:</strong> <a href={stats.originalUrl} target="_blank" rel="noreferrer">{stats.originalUrl}</a></p>
+            <p><strong>Clicks:</strong> {stats.clicks}</p>
+            <p><strong>Created At:</strong> {stats.createdAt}</p>
+            <p><strong>Expire At:</strong> {stats.expireAt}</p>
           </div>
         )}
       </div>

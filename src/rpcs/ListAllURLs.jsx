@@ -64,32 +64,34 @@ export default function ListAllURLs({ client, proto, goBack }) {
         {error && <div className="error"><strong>Error:</strong> {error}</div>}
         {urls && (
           <div>
-            <p><strong>Returned:</strong> {urls.length}</p>
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>Short ID</th>
-                  <th>Original URL</th>
-                  <th>Clicks</th>
-                  <th>Created</th>
-                  <th>ExpireAt</th>
-                </tr>
-              </thead>
-              <tbody>
-                {urls.map((u) => (
-                  <tr key={u.shortId}>
-                    <td>{u.shortId}</td>
-                    <td><a href={u.originalUrl} target="_blank" rel="noreferrer">{u.originalUrl}</a></td>
-                    <td>{u.clicks}</td>
-                    <td>{u.createdAt}</td>
-                    <td>{u.expireAt}</td>
+            <p style={{marginBottom: '16px', fontSize: '1.1rem'}}><strong>Returned:</strong> {urls.length} URL(s)</p>
+            <div className="table-container">
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th>Short ID</th>
+                    <th>Original URL</th>
+                    <th>Clicks</th>
+                    <th>Created</th>
+                    <th>Expire At</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {urls.map((u) => (
+                    <tr key={u.shortId}>
+                      <td>{u.shortId}</td>
+                      <td><a href={u.originalUrl} target="_blank" rel="noreferrer" title={u.originalUrl}>{u.originalUrl}</a></td>
+                      <td>{u.clicks}</td>
+                      <td>{u.createdAt}</td>
+                      <td>{u.expireAt}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
 
             {lastEvaluatedKey && (
-              <p className="muted" style={{marginTop: 8}}><strong>LastEvaluatedKey:</strong> {lastEvaluatedKey}</p>
+              <p className="muted" style={{marginTop: 16, padding: '12px', background: 'rgba(138, 92, 255, 0.05)', borderRadius: '8px'}}><strong>LastEvaluatedKey:</strong> {lastEvaluatedKey}</p>
             )}
           </div>
         )}

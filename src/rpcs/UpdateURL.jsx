@@ -63,7 +63,7 @@ export default function UpdateURL({ client, proto, goBack }) {
       <div className="messages">
         {error && <div className="error"><strong>Error:</strong> {error}</div>}
         {result && (
-          <div className="result">
+          <div className="stats-card">
             <p><strong>Success:</strong> {String(result.success)}</p>
             {result.message && <p><strong>Message:</strong> {result.message}</p>}
           </div>

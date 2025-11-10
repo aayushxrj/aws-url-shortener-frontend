@@ -48,7 +48,11 @@ export default function GetOriginalURL({ client, proto, goBack }) {
 
       <div className="messages">
         {error && <div className="error"><strong>Error:</strong> {error}</div>}
-        {original && <div className="result"><strong>Original URL:</strong> <a href={original} target="_blank" rel="noreferrer">{original}</a></div>}
+        {original && (
+          <div className="stats-card">
+            <p><strong>Original URL:</strong> <a href={original} target="_blank" rel="noreferrer">{original}</a></p>
+          </div>
+        )}
       </div>
     </div>
   );

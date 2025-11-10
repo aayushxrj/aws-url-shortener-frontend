@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './App.css';
 import proto from './proto/gen/main_pb.js';
 import grpc from './proto/gen/main_grpc_web_pb.js';
@@ -18,6 +19,7 @@ const SHORT_ROOT = import.meta.env.VITE_SHORT_ROOT || 'http://localhost:8080';
 const client = new grpc.UrlShortenerPromiseClient(GRPC_HOST);
 
 export default function App() {
+	const navigate = useNavigate();
 	const [selectedRpc, setSelectedRpc] = useState(null);
 
 	function goBack() {
@@ -84,6 +86,7 @@ export default function App() {
 			<header className="navbar">
 				<div className="brand">URL Shortener</div>
 				<nav className="nav-actions">
+					<button type="button" className="btn btn-outline" onClick={() => navigate('/')}>← Landing</button>
 					<button type="button" className="btn btn-outline" onClick={() => setSelectedRpc(null)}>Home</button>
 					<button type="button" className="btn btn-outline" onClick={() => setSelectedRpc('health')}>Health</button>
 					<button type="button" className="btn btn-outline" onClick={() => setSelectedRpc('list')}>List</button>

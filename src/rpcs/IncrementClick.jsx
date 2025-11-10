@@ -48,7 +48,11 @@ export default function IncrementClick({ client, proto, goBack }) {
 
       <div className="messages">
         {error && <div className="error"><strong>Error:</strong> {error}</div>}
-        {clicks !== null && <div className="result"><strong>Clicks:</strong> {clicks}</div>}
+        {clicks !== null && (
+          <div className="stats-card">
+            <p><strong>Clicks:</strong> {clicks}</p>
+          </div>
+        )}
       </div>
     </div>
   );

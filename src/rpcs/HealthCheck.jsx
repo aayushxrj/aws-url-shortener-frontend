@@ -33,7 +33,11 @@ export default function HealthCheck({ client, proto, goBack }) {
       </div>
 
       {error && <div className="error"><strong>Error:</strong> {error}</div>}
-      {status && <div className="result"><strong>Status:</strong> {status}</div>}
+      {status && (
+        <div className="stats-card">
+          <p><strong>Status:</strong> {status}</p>
+        </div>
+      )}
     </div>
   );
 }
